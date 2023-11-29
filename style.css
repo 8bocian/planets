@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+  color: white;
+  cursor: url('/assets//cursors/cursor.cur'), auto;
+}
+
+body, html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
+  cursor: url('/assets//cursors/cursor.cur'), auto;
+  cursor: url('/assets//cursors/cursor.cur'), pointer;
+}
+
+.webgl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  cursor: pointer;
+}
+
+#menu {
+  display: flex;
+  z-index: 2;
+  height: 100%;
+  width: 30%;
+  color: white;
+  transition: 1s;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(20, 20, 20, 0.5);
+}
+
+#menu a {
+  padding: 8px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+#menu a:hover {
+  background-color: #555;
+}
+
+#menu-toggle {
+  z-index: 2;
+  font-size: 30px;
+  cursor: pointer;
+  margin-left: 50%;
+  margin-top: 50%;
+}
+
+#hoverText {
+  position: absolute;
+  z-index: 10;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  background-color: rgba(5, 5, 5, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 16rem;
+  min-width: 16rem;
+  padding: auto;
+  /* white-space: nowrap; */
+  overflow-x: hidden;
+  overflow-y: hidden;
+}

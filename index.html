@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  </head>
+  <body>
+
+    <div id="menu">
+      <div class="content" id="content">
+        <!-- <a href="#">Menu Item 1</a>
+        <a href="#">Menu Item 2</a>
+        <a href="#">Menu Item 3</a> -->
+      </div>
+      <div class="toggle">
+        <div id="menu-toggle">&#9654;</div>
+      </div>
+    </div>
+    
+    <div id="hoverText" style="position: absolute; display: none; pointer-events: none;">
+      <p style="text-align: center; width: 100%; font-size: 1.5rem;">dupa</p>
+      <hr style="margin: 2px 0 2px 0">
+      <img id="mini-display-image" class="responsive-image" src="/assets/images/mock1.png" alt="Your Image" style="float: left; width: 6rem; margin: 5px;">
+      <p id="mini-display-text" style="margin: 5px; font-size: 0.9rem;">
+        Your text here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+      </p>
+    </div>
+
+    <canvas class="webgl" id="webgl"></canvas>
+
+    <script id="vertexshader" type="vertex">
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    </script>
+    <script id="fragmentshader" type="fragment">
+      uniform sampler2D baseTexture;
+      uniform sampler2D bloomTexture;
+      varying vec2 vUv;
+      void main() {
+        gl_FragColor = (texture2D(baseTexture, vUv) + vec4(1.0) * texture2D(bloomTexture, vUv));
+      }
+    </script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
