@@ -7,6 +7,7 @@ import {Planet} from './classes/Planet.js';
 import {generateRandomValues, generateIntenseColor} from './utils.js'
 import starsTexture from '../assets/textures/stars_sqr.jpg';
 import * as TWEEN from '@tweenjs/tween.js';
+import backgroundTexture from '../assets/textures/galaxy1.png'; // Replace with the path to your background image
 
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -47,13 +48,18 @@ let zoomInterpolationSpeed = 0.05;
 const clock = new THREE.Clock();
 
 let followedObject = null;
-var targetPosition = new THREE.Vector3(0, 0, -15);
+var targetPosition = new THREE.Vector3(0, 10, -15);
 
 let projectNum = null;
 
 let info = {};
 
 let menuOn = false;
+let events = true;
+
+menu.addEventListener("mouseenter", () => (events = false));
+menu.addEventListener("mouseleave", () => (events = true));
+
 
 await fetch('js/data.json')
   .then(response => response.json())
@@ -64,8 +70,7 @@ await fetch('js/data.json')
     console.error('Error loading the JSON file: ', error);
 });
 
-content.innerHTML = info.description.name + info.description.description;
-
+// content.innerHTML = info.description.name + info.description.description;
 
 //Scene
 const scene = new THREE.Scene();
@@ -89,13 +94,10 @@ window.addEventListener('resize', () => {
   menu.style.transition = '0s';
 
   if (menuOn) {
-    menu.style.marginLeft = '0px';
+    showMenu();
   } else {
-    menu.style.marginLeft = `-${content.clientWidth}px`;
+    hideMenu();
   }
-
-  console.log(menuOn);
-
 })
 
 //Camera
@@ -175,6 +177,11 @@ function restoreMaterial(obj) {
   }
 }
 
+
+renderer.setSize(size.width, size.height);
+bloomComposer.setSize(size.width, size.height);
+finalComposer.setSize(size.width, size.height);
+
 //Lighting
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -200,7 +207,6 @@ for(let i=0; i<nPlanets; i++){
   let orbitRadius = orbits[i];
 
   let orbitSpeed = Math.max((Math.random() * 0.4) / orbitRadius, 0.004)/10;
-  console.log(orbitSpeed);
   const planet = new Planet(color, planetRadius, orbitRadius, orbitSpeed);
   planets.push(planet);
   planet.mesh.layers.toggle(BLOOM_SCENE);
@@ -228,91 +234,104 @@ function updateMiniDisplay(){
 window.addEventListener('mousemove', (event) => {
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
+  if(events){
+    raycaster.setFromCamera(mouse, camera);
   
-  const intersects = raycaster.intersectObjects(scene.children);
-  if (intersects.length > 0){
-    display.style.cursor = 'pointer';
-    const hoveredObject = intersects[0].object;
+    const intersects = raycaster.intersectObjects(scene.children);
+    if (intersects.length > 0){
+      display.style.cursor = 'pointer';
+      const hoveredObject = intersects[0].object;
 
-    // Position the text element based on the mouse coordinates.
+      // Position the text element based on the mouse coordinates.
 
-    projectNum = planets.findIndex(planet => planet.mesh === hoveredObject)-1;
+      projectNum = planets.findIndex(planet => planet.mesh === hoveredObject)-1;
 
-    if (projectNum < 0){
-      miniDisplayText.innerHTML = info.description.name + info.description.short_description;
-      miniDisplayImage.innerHTML = info.description.image;
-    } else {
-      miniDisplayText.innerHTML = info.projects[projectNum].name + info.projects[projectNum].short_description;
-      miniDisplayImage.innerHTML = info.projects[projectNum].image;
+      if (projectNum < 0){
+        miniDisplayText.innerHTML = info.description.name + info.description.short_description;
+        miniDisplayImage.innerHTML = info.description.image;
+      } else {
+        miniDisplayText.innerHTML = info.projects[projectNum].name + info.projects[projectNum].short_description;
+        miniDisplayImage.innerHTML = info.projects[projectNum].image;
+      }
+
+      hoverTextElement.style.display = 'block';
+
+      hoverTextElement.style.left = event.clientX - 4 + 'px';
+      hoverTextElement.style.top = event.clientY - 8 - hoverTextElement.clientHeight + 'px';
+
+      if (event.clientX + hoverTextElement.clientWidth > window.innerWidth) {
+        hoverTextElement.style.left = (event.clientX - hoverTextElement.clientWidth + 4) + 'px';
+      }
+
+      // Check and adjust for the bottom overflow
+      if (event.clientY - hoverTextElement.clientHeight < 0) {
+        hoverTextElement.style.top = (event.clientY + 20) + 'px';
+      }
+
+    } else if (intersects.length == 0){
+      projectNum = null;
+      display.style.cursor = 'default';
+      hoverTextElement.style.display = 'none';
+
     }
-
-    hoverTextElement.style.display = 'block';
-
-    hoverTextElement.style.left = event.clientX - 4 + 'px';
-    hoverTextElement.style.top = event.clientY - 8 - hoverTextElement.clientHeight + 'px';
-
-    if (event.clientX + hoverTextElement.clientWidth > window.innerWidth) {
-      hoverTextElement.style.left = (event.clientX - hoverTextElement.clientWidth + 4) + 'px';
-    }
-
-    // Check and adjust for the bottom overflow
-    if (event.clientY - hoverTextElement.clientHeight < 0) {
-      hoverTextElement.style.top = (event.clientY + 20) + 'px';
-    }
-
-  } else if (intersects.length == 0){
-    projectNum = null;
-    display.style.cursor = 'default';
-    hoverTextElement.style.display = 'none';
-
   }
-
 });
 
 menuToggle.addEventListener('click', toggleMenu);
 
 function toggleMenu() {
-  menu.style.transition = '1s';
-  var width = content.clientWidth;
   if (menu.style.marginLeft === '0px') {
-    menu.style.marginLeft = `-${width}px`;
-    menuOn = false;
+    hideMenu();
   } else {
-    menu.style.marginLeft = '0px';
-    menuOn = true;
+    showMenu();
   }
 }
-let prevFollowedObjectPosition = null;
+
+function showMenu() {
+  menu.style.transition = '1s';
+  menu.style.marginLeft = '0px';
+  menuOn = true;
+  menuToggle.style.transform = 'rotate(180deg)';
+}
+
+function hideMenu() {
+  menu.style.transition = '1s';
+  var width = content.clientWidth;
+  var computedStyles = window.getComputedStyle(content);
+  var marginRight = parseFloat(computedStyles.marginRight);
+  menu.style.marginLeft = `-${width + marginRight}px`;
+  menuOn = false;
+  menuToggle.style.transform = 'rotate(0)';
+}
+
+let clicked = 0;
 
 window.addEventListener('click', () => {
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(scene.children);
-  if (intersects.length > 0){
-    const obj = intersects[0].object;
-    if(followedObject !== null){
-      console.log("DWA");
-      prevFollowedObjectPosition = new THREE.Vector3();
-      prevFollowedObjectPosition.copy(followedObject.position);
-    }
+  if(events){
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+    if (intersects.length > 0){
+      const obj = intersects[0].object;
+      if(obj !== followedObject){
+        clicked = 4;
+        showMenu();
+        
+        // camera.lookAt(followedObject);
 
-    followedObject = obj;
+        followedObject = obj;
+        followedObject.attach(camera);
 
-    followedObject.attach(camera);
+        // Reset interpolation factors when changing the followed object
+        rotationInterpolationFactor = 0.01;
+        zoomInterpolationFactor = 0.01;
+        // toggleMenu();
+        if (projectNum < 0){
+          // content.innerHTML = info.description.name + info.description.description;
+        } else {
+          // content.innerHTML = info.projects[projectNum]['name'] + info.projects[projectNum]['description'];
+        }
+      }
 
-    if(prevFollowedObjectPosition !== null){
-      console.log("TRZ");
-    }
-    camera.lookAt(followedObject);
-
-    // Reset interpolation factors when changing the followed object
-    rotationInterpolationFactor = 0.01;
-    zoomInterpolationFactor = 0.01;
-    // toggleMenu();
-    if (projectNum < 0){
-      content.innerHTML = info.description.name + info.description.description;
-    } else {
-      content.innerHTML = info.projects[projectNum]['name'] + info.projects[projectNum]['description'];
     }
   }
 });
@@ -339,24 +358,19 @@ const transparent_distance_length = 100;
 const transparent_distance_min = 50;
 const transparent_dirance = transparent_distance_length + transparent_distance_min;
 let fpss = [];
+
 // Add scroll event listener
-const loop = () => {
-  const delta = clock.getDelta();
-  const fps = 1 / delta;
-  if(fps !== Infinity){
-    fpss.push(fps);
-  }
-  // console.log(`FPS: ${fps.toFixed(1)}`);
-  if(fpss.length%60==0){
-    let averageFps = fpss.reduce((a, b) => a + b, 0) / fpss.length;
-    // console.log(`FPS mea: ${averageFps}`)
-    fpss = [];
-  }
+const loop = () => {  
   window.requestAnimationFrame(loop);
   controls.update();
 
   let alpha = 1;
 
+  while(clicked > 0){
+    clicked --;
+    // console.log(camera.quaternion);
+
+  }
 
   if(followedObject){
     var target = new THREE.Vector3(); // create once an reuse it
@@ -369,7 +383,6 @@ const loop = () => {
       alpha = Math.max(Math.min((((distance-transparent_distance_min)/transparent_distance_length)), 1), 0);
     }
 
-
     if (!Number.isInteger(rotationInterpolationFactor)){
       currentQuaternion.copy(camera.quaternion);
       camera.lookAt(followedObject.position);
@@ -381,9 +394,6 @@ const loop = () => {
       rotationInterpolationFactor += rotationInterpolationSpeed;
       rotationInterpolationFactor = Math.min(rotationInterpolationFactor, 1);
       
-      // console.log(camera.quaternion);
-
-      // camera.quaternion.slerp(targetQuaternion, rotationInterpolationFactor);
       camera.quaternion.copy(currentQuaternion).slerp(targetQuaternion, rotationInterpolationFactor);
 
     } else {
@@ -400,9 +410,19 @@ const loop = () => {
 
 
   planets.forEach(planet => {
-    planet.update(alpha);
-    group.add(planet.line);
+    planet.update(alpha, fpss.length%5==0);
   });
+
+  const delta = clock.getDelta();
+  const fps = 1 / delta;
+  if(fps !== Infinity){
+    fpss.push(fps);
+  }
+  if(fpss.length%60==0){
+    let averageFps = fpss.reduce((a, b) => a + b, 0) / fpss.length;
+    // console.log(`FPS mea: ${averageFps}`)
+    fpss = [];
+  }
 
   TWEEN.update();
   scene.traverse(nonBloomed);

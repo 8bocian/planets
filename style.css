@@ -3,7 +3,7 @@
   padding: 0;
   z-index: 100;
   color: white;
-  cursor: url('/assets//cursors/cursor.cur'), auto;
+  /* cursor: url('/assets//cursors/cursor.cur'), auto; */
 }
 
 body, html {
@@ -12,8 +12,8 @@ body, html {
   font-family: "Poppins", sans-serif;
   height: 100%;
   width: 100%;
-  cursor: url('/assets//cursors/cursor.cur'), auto;
-  cursor: url('/assets//cursors/cursor.cur'), pointer;
+  /* cursor: url('/assets//cursors/cursor.cur'), auto;
+  cursor: url('/assets//cursors/cursor.cur'), pointer; */
 }
 
 .webgl {
@@ -28,35 +28,37 @@ body, html {
   display: flex;
   z-index: 2;
   height: 100%;
-  width: 30%;
+  width: 35%;
   color: white;
   transition: 1s;
 }
 
 .content {
+  border-radius: 10px;
   height: 100%;
   width: 100%;
   background-color: rgba(20, 20, 20, 0.5);
+  margin: 4%;
+  padding: 4%;
+  background: linear-gradient(to bottom, rgba(20, 20, 20, 0.5) 50%, rgba(0, 0, 0, 0) 70%);
 }
 
-#menu a {
-  padding: 8px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: white;
-  display: block;
-  transition: 0.3s;
+.name {
+  /* text-align: center; */
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
-#menu a:hover {
-  background-color: #555;
+.description {
+  /* word-wrap: break-word; */
+  font-size: 1rem;
 }
 
 #menu-toggle {
   z-index: 2;
   font-size: 30px;
   cursor: pointer;
-  margin-left: 50%;
+  /* margin-left: 50%; */
   margin-top: 50%;
 }
 
@@ -75,4 +77,5 @@ body, html {
   /* white-space: nowrap; */
   overflow-x: hidden;
   overflow-y: hidden;
+  user-select: none;
 }
