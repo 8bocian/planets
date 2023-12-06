@@ -185,9 +185,16 @@ finalComposer.setSize(size.width, size.height);
 //Lighting
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-group.add(ambientLight);
+scene.add(ambientLight);
 
 ////Planetary System
+
+const sphereGeometry = new THREE.SphereGeometry(5000, 32, 32);
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load('/assets/textures/galaxy1.png');
+const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+scene.add(sphere);
 
 //Sun
 const sun = new Planet("#FDB813", 4, 0, 0);
@@ -197,6 +204,8 @@ group.add(sun.mesh);
 //Planets
 var planets = [sun];
 const nPlanets =  info.projects.length;//5;
+
+// const nPlanets =  8;
 // const nPlanets = 8;
 const orbits = generateRandomValues(nPlanets, 15, 15, 30);
 
@@ -210,7 +219,7 @@ for(let i=0; i<nPlanets; i++){
   const planet = new Planet(color, planetRadius, orbitRadius, orbitSpeed);
   planets.push(planet);
   planet.mesh.layers.toggle(BLOOM_SCENE);
-
+  
   group.add(planet.mesh);
   group.add(planet.line);
 }
@@ -234,11 +243,10 @@ function updateMiniDisplay(){
 window.addEventListener('mousemove', (event) => {
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-  if(events){
     raycaster.setFromCamera(mouse, camera);
   
-    const intersects = raycaster.intersectObjects(scene.children);
-    if (intersects.length > 0){
+    const intersects = raycaster.intersectObjects(group.children);
+    if (events && intersects.length > 0){
       display.style.cursor = 'pointer';
       const hoveredObject = intersects[0].object;
 
@@ -274,7 +282,12 @@ window.addEventListener('mousemove', (event) => {
       hoverTextElement.style.display = 'none';
 
     }
-  }
+});
+
+window.addEventListener('mouseout', (event) => {
+  projectNum = null;
+  display.style.cursor = 'default';
+  hoverTextElement.style.display = 'none';
 });
 
 menuToggle.addEventListener('click', toggleMenu);
@@ -309,7 +322,7 @@ let clicked = 0;
 window.addEventListener('click', () => {
   if(events){
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children);
+    const intersects = raycaster.intersectObjects(group.children);
     if (intersects.length > 0){
       const obj = intersects[0].object;
       if(obj !== followedObject){
@@ -317,24 +330,50 @@ window.addEventListener('click', () => {
         showMenu();
         
         // camera.lookAt(followedObject);
-
+        let prev = null;
+        if(followedObject !== null){
+          prev = followedObject.clone();
+        }
         followedObject = obj;
         followedObject.attach(camera);
-
-        // Reset interpolation factors when changing the followed object
-        rotationInterpolationFactor = 0.01;
-        zoomInterpolationFactor = 0.01;
-        // toggleMenu();
-        if (projectNum < 0){
-          // content.innerHTML = info.description.name + info.description.description;
-        } else {
-          // content.innerHTML = info.projects[projectNum]['name'] + info.projects[projectNum]['description'];
+        if(prev !== null){
+          let p = prev.position
+          // console.log(p);
+          camera.lookAt(p);
+          raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+          const intersects = raycaster.intersectObjects(group.children);
+          console.log("#########");
+          if(intersects.length > 0){
+            projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
+            console.log(projectNum);
+          }
+          console.log(camera.quaternion);
+          console.log("#########");
         }
+        rotationInterpolationFactor = 0.1;
+        zoomInterpolationFactor = 0.1;
+        projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
+        clicked = 5;
       }
-
     }
   }
 });
+
+function isCameraLookingAtObject(camera, object) {
+  const direction = new THREE.Vector3(0, 0, -1);
+  const cameraWorldDirection = new THREE.Vector3();
+  camera.getWorldDirection(cameraWorldDirection);
+
+  const objectWorldPosition = new THREE.Vector3();
+  object.getWorldPosition(objectWorldPosition);
+
+  const vectorToObj = objectWorldPosition.sub(camera.position).normalize();
+
+  const angle = direction.angleTo(vectorToObj);
+  const thresholdAngle = 0.1; // Adjust this threshold based on your needs
+
+  return angle;
+}
 
 window.addEventListener('keydown', (event) => {
   if(event.keyCode === 27) {
@@ -360,9 +399,26 @@ const transparent_dirance = transparent_distance_length + transparent_distance_m
 let fpss = [];
 
 // Add scroll event listener
+function areQuaternionsDifferent(q1, q2) {
+  return (
+      Math.abs(q1.x - q2.x) > 0.001 ||
+      Math.abs(q1.y - q2.y )> 0.001||
+      Math.abs(q1.z - q2.z )> 0.001||
+      Math.abs(q1.w - q2.w )> 0.001
+  );
+}
+let p = camera.quaternion.clone();
 const loop = () => {  
   window.requestAnimationFrame(loop);
   controls.update();
+  if(areQuaternionsDifferent(camera.quaternion, p)){
+    raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+    const intersects = raycaster.intersectObjects(group.children);
+    if(intersects.length > 0){
+      projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
+    }
+  }
+  p = camera.quaternion.clone();
 
   let alpha = 1;
 
@@ -375,7 +431,7 @@ const loop = () => {
   if(followedObject){
     var target = new THREE.Vector3(); // create once an reuse it
 
-    camera.getWorldPosition( target );
+    // camera.getWorldPosition( target );
 
     var distance = target.distanceTo(followedObject.position);
 
@@ -383,28 +439,41 @@ const loop = () => {
       alpha = Math.max(Math.min((((distance-transparent_distance_min)/transparent_distance_length)), 1), 0);
     }
 
-    if (!Number.isInteger(rotationInterpolationFactor)){
+    if (!Number.isInteger(rotationInterpolationFactor)) {
+      // Set initial quaternion
       currentQuaternion.copy(camera.quaternion);
+  
+      // Set target quaternion to look at followedObject
       camera.lookAt(followedObject.position);
       targetQuaternion.copy(camera.quaternion);
-
+  
+      // Reset camera quaternion to initial state
       camera.quaternion.copy(currentQuaternion);
-      
-
+  
+      // Normalize quaternions
+      currentQuaternion.normalize();
+      targetQuaternion.normalize();
+  
+      // Perform slerp interpolation
       rotationInterpolationFactor += rotationInterpolationSpeed;
       rotationInterpolationFactor = Math.min(rotationInterpolationFactor, 1);
-      
-      camera.quaternion.copy(currentQuaternion).slerp(targetQuaternion, rotationInterpolationFactor);
+      camera.quaternion.slerp(targetQuaternion, rotationInterpolationFactor);
+      raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+      const intersects = raycaster.intersectObjects(group.children);
+      if(intersects.length > 0){
+        projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
+        console.log(projectNum);
+      }
+      console.log(camera.quaternion);
 
     } else {
-      if (zoomInterpolationFactor < 1){
-        zoomInterpolationFactor += zoomInterpolationSpeed;
-        camera.position.lerp(targetPosition, zoomInterpolationFactor);
-        
+      if (zoomInterpolationFactor < 1) {
+          zoomInterpolationFactor += zoomInterpolationSpeed;
+          camera.position.lerp(targetPosition, zoomInterpolationFactor);
       }
+      // console.log(followedObject.position);
       camera.lookAt(followedObject.position);
-
-      }
+    }
 
   }
 
@@ -424,13 +493,14 @@ const loop = () => {
     fpss = [];
   }
 
+
+
   TWEEN.update();
   scene.traverse(nonBloomed);
   bloomComposer.render();
   scene.traverse(restoreMaterial);
 
   finalComposer.render();
-
 }
 
 loop()

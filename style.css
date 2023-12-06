@@ -54,6 +54,10 @@ body, html {
   font-size: 1rem;
 }
 
+.toggle {
+  height: min-content;
+}
+
 #menu-toggle {
   z-index: 2;
   font-size: 30px;
