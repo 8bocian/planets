@@ -325,55 +325,29 @@ window.addEventListener('click', () => {
     const intersects = raycaster.intersectObjects(group.children);
     if (intersects.length > 0){
       const obj = intersects[0].object;
-      if(obj !== followedObject){
+      // if(obj !== followedObject){
         clicked = 4;
-        showMenu();
+        // showMenu();
         
-        // camera.lookAt(followedObject);
-        let prev = null;
-        if(followedObject !== null){
-          prev = followedObject.clone();
-        }
+        let prev = followedObject;
+
         followedObject = obj;
         followedObject.attach(camera);
-        if(prev !== null){
-          let p = prev.position
-          // console.log(p);
-          camera.lookAt(p);
-          raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-          const intersects = raycaster.intersectObjects(group.children);
-          console.log("#########");
-          if(intersects.length > 0){
-            projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
-            console.log(projectNum);
-          }
-          console.log(camera.quaternion);
-          console.log("#########");
+        
+        if (prev != null){
+        controls.target.set(prev.position.x, prev.position.y, prev.position.z);
+        controls.update();
+
         }
+        
         rotationInterpolationFactor = 0.1;
         zoomInterpolationFactor = 0.1;
         projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
         clicked = 5;
       }
-    }
+    // }
   }
 });
-
-function isCameraLookingAtObject(camera, object) {
-  const direction = new THREE.Vector3(0, 0, -1);
-  const cameraWorldDirection = new THREE.Vector3();
-  camera.getWorldDirection(cameraWorldDirection);
-
-  const objectWorldPosition = new THREE.Vector3();
-  object.getWorldPosition(objectWorldPosition);
-
-  const vectorToObj = objectWorldPosition.sub(camera.position).normalize();
-
-  const angle = direction.angleTo(vectorToObj);
-  const thresholdAngle = 0.1; // Adjust this threshold based on your needs
-
-  return angle;
-}
 
 window.addEventListener('keydown', (event) => {
   if(event.keyCode === 27) {
@@ -398,80 +372,53 @@ const transparent_distance_min = 50;
 const transparent_dirance = transparent_distance_length + transparent_distance_min;
 let fpss = [];
 
-// Add scroll event listener
-function areQuaternionsDifferent(q1, q2) {
-  return (
-      Math.abs(q1.x - q2.x) > 0.001 ||
-      Math.abs(q1.y - q2.y )> 0.001||
-      Math.abs(q1.z - q2.z )> 0.001||
-      Math.abs(q1.w - q2.w )> 0.001
-  );
-}
-let p = camera.quaternion.clone();
-const loop = () => {  
+
+const loop = () => {
   window.requestAnimationFrame(loop);
   controls.update();
-  if(areQuaternionsDifferent(camera.quaternion, p)){
-    raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-    const intersects = raycaster.intersectObjects(group.children);
-    if(intersects.length > 0){
-      projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
-    }
-  }
-  p = camera.quaternion.clone();
-
   let alpha = 1;
 
-  while(clicked > 0){
-    clicked --;
-    // console.log(camera.quaternion);
-
-  }
-
   if(followedObject){
-    var target = new THREE.Vector3(); // create once an reuse it
+    var target = new THREE.Vector3();
 
-    // camera.getWorldPosition( target );
+    camera.getWorldPosition( target );
+    
+    // let quat = new THREE.Quaternion();
+
+    // camera.getWorldQuaternion( quat );
+    
+    // console.log(quat, camera.quaternion);
 
     var distance = target.distanceTo(followedObject.position);
-
     if (distance < transparent_dirance){
       alpha = Math.max(Math.min((((distance-transparent_distance_min)/transparent_distance_length)), 1), 0);
     }
 
     if (!Number.isInteger(rotationInterpolationFactor)) {
-      // Set initial quaternion
+      
       currentQuaternion.copy(camera.quaternion);
-  
-      // Set target quaternion to look at followedObject
       camera.lookAt(followedObject.position);
       targetQuaternion.copy(camera.quaternion);
-  
-      // Reset camera quaternion to initial state
       camera.quaternion.copy(currentQuaternion);
   
-      // Normalize quaternions
       currentQuaternion.normalize();
       targetQuaternion.normalize();
   
-      // Perform slerp interpolation
       rotationInterpolationFactor += rotationInterpolationSpeed;
       rotationInterpolationFactor = Math.min(rotationInterpolationFactor, 1);
       camera.quaternion.slerp(targetQuaternion, rotationInterpolationFactor);
-      raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-      const intersects = raycaster.intersectObjects(group.children);
-      if(intersects.length > 0){
-        projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
-        console.log(projectNum);
-      }
-      console.log(camera.quaternion);
 
+      console.log(rotationInterpolationFactor);
     } else {
-      if (zoomInterpolationFactor < 1) {
+
+      if(zoomInterpolationFactor < 1) {
           zoomInterpolationFactor += zoomInterpolationSpeed;
           camera.position.lerp(targetPosition, zoomInterpolationFactor);
+          // controls.target.set(followedObject.position.x, followedObject.position.y, followedObject.position.z);
+      } else if (controls.target !== new THREE.Vector3(0, 0, 0)) {
+          controls.target.set(0, 0, 0);
+          controls.update();
       }
-      // console.log(followedObject.position);
       camera.lookAt(followedObject.position);
     }
 
@@ -494,13 +441,14 @@ const loop = () => {
   }
 
 
-
+  
   TWEEN.update();
   scene.traverse(nonBloomed);
   bloomComposer.render();
   scene.traverse(restoreMaterial);
 
   finalComposer.render();
+
 }
 
 loop()
