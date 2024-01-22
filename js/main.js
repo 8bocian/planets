@@ -52,7 +52,35 @@ var targetPosition = new THREE.Vector3(0, 10, -15);
 
 let projectNum = null;
 
-let info = {};
+let info = {
+  "description": {
+      "short_description": "O mnie",
+      "name": "bocian",
+      "description": "opis"
+  },
+  "projects": [
+      {
+          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
+          "name": "Nazwa1",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+      },
+      {
+          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
+          "name": "Nazwa2",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+      },
+      {
+          "name": "Nazwa2",
+          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+      },
+      {
+          "name": "Nazwa2",
+          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+      }
+  ]
+};
 
 let menuOn = false;
 let events = true;
@@ -61,14 +89,6 @@ menu.addEventListener("mouseenter", () => (events = false));
 menu.addEventListener("mouseleave", () => (events = true));
 
 
-await fetch('js/data.json')
-  .then(response => response.json())
-  .then(data => {
-    info = data;
-  })
-  .catch(error => {
-    console.error('Error loading the JSON file: ', error);
-});
 
 // content.innerHTML = info.description.name + info.description.description;
 
