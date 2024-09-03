@@ -5,6 +5,7 @@ import '../style.css';
 import {Planet} from './classes/Planet.js';
 import {generateRandomValues, generateIntenseColor} from './utils.js'
 import * as TWEEN from '@tweenjs/tween.js';
+import galaxyTexture from '../assets/textures/galaxy1.png';
 
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -208,7 +209,7 @@ scene.add(ambientLight);
 
 const sphereGeometry = new THREE.SphereGeometry(5000, 32, 32);
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('/assets/textures/galaxy1.png');
+const texture = textureLoader.load(galaxyTexture);
 const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
@@ -232,7 +233,7 @@ for(let i=0; i<nPlanets; i++){
 
   let orbitRadius = orbits[i];
 
-  let orbitSpeed = Math.max((Math.random() * 0.4) / orbitRadius, 0.004)/7;
+  let orbitSpeed = Math.max((Math.random() * 0.4) / orbitRadius, 0.004)/10;
   const planet = new Planet(color, planetRadius, orbitRadius, orbitSpeed);
   planets.push(planet);
   planet.mesh.layers.toggle(BLOOM_SCENE);
@@ -474,3 +475,6 @@ const tl = gsap.timeline({defaults: {duration: 3}});
 planets.forEach(children => {
   tl.fromTo(children.mesh.scale, {z: 0, x: 0, y: 0}, {z: 1, x: 1, y: 1}, 0)
 });
+
+
+// NAPRAWIC TE PIERDOLONE SLERPY CO SIE OD SLONCA ZACZYNAJA, dodac hovera
