@@ -22,6 +22,11 @@ const menu = document.getElementById('menu');
 const content = document.getElementById("content");
 const display = document.getElementById('webgl');
 const hoverTextElement = document.getElementById('hoverText');
+
+const bigDisplayHeader = document.getElementById('big-display-header');
+const bigDisplayText = document.getElementById('big-display-text');
+
+const miniDisplayHeader = document.getElementById('mini-display-header');
 const miniDisplayText = document.getElementById('mini-display-text');
 const miniDisplayImage = document.getElementById('mini-display-image');
 
@@ -55,29 +60,53 @@ let projectNum = null;
 let info = {
   "description": {
       "short_description": "O mnie",
-      "name": "bocian",
-      "description": "opis"
+      "name": "Bocian",
+      "short_description": "Python programmer with experience in machine learning, API development, and web scraping. Skilled in automating tasks, extracting data, and building data-driven applications.",
+      "description": "Passionate Python programmer with expertise in building machine learning models, developing robust APIs, and web scraping. At 19, I bring a strong foundation in software development, with hands-on experience in automating tasks, extracting valuable data, and creating data-driven applications. Eager to tackle challenging problems and continuously learn new technologies",
+      "image": "stork.png"
   },
   "projects": [
       {
-          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-          "name": "Nazwa1",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+          "name": "YouTube Shorts Automation",
+          "image": "python-icon.svg",
+          "description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation. Github Links: <a href='https://github.com/8bocian/shorts-automation'>Backend</a>",
+          "short_description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
+          "link": "https://github.com/8bocian/shorts-automation"
       },
       {
-          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-          "name": "Nazwa2",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+          "name": "Price Consolidation Finder",
+          "image": "python-icon.svg",
+          "description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis. Github Links: <a href='https://github.com/8bocian/ConsolidationFinder'>Backend</a>",
+          "short_description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
+          "link": "https://github.com/8bocian/ConsolidationFinder"
       },
       {
-          "name": "Nazwa2",
-          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+          "name": "Automatic License Plate Reader",
+          "image": "python-icon.svg",
+          "description": "A Python application for recognizing and interpreting license plates from images or video feeds. Github Links: <a href='https://github.com/8bocian/ALPR'>Backend</a>",
+          "short_description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
+          "link": "https://github.com/8bocian/ALPR - AutomaticLicensePlateReader"
       },
       {
-          "name": "Nazwa2",
-          "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+          "name": "Road Lane Detector",
+          "image": "python-icon.svg",
+          "description": "A Python script for identifying and tracking road lanes in video footage. Github Links: <a href='https://github.com/8bocian/Lane-Detector'>Backend</a>",
+          "short_description": "A Python script for identifying and tracking road lanes in video footage.",
+          "link": "https://github.com/8bocian/Lane-Detector"
+      },
+      {
+        "name": "BriefPic",
+        "image": "python-icon.svg",
+        "description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards. Github Links: <a href='https://github.com/8bocian/BriefPic'>Backend</a> <a href='https://github.com/8bocian/BriefPic-App'>Frontend</a>",
+        "short_description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards.",
+        "link": "https://github.com/8bocian/BriefPic-App"
+      },
+      {
+          "name": "Scrapy Market Data Collectors ",
+          "image": "python-icon.svg",
+          "description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies. Github Links: <a href='https://github.com/8bocian/Scrapy_Market_Data_Collectors'>Backend</a>",
+          "short_description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies.",
+          "link": "https://github.com/8bocian/Scrapy_Market_Data_Collectors"
       }
   ]
 };
@@ -275,11 +304,20 @@ window.addEventListener('mousemove', (event) => {
       projectNum = planets.findIndex(planet => planet.mesh === hoveredObject)-1;
 
       if (projectNum < 0){
-        miniDisplayText.innerHTML = info.description.name + info.description.short_description;
-        miniDisplayImage.innerHTML = info.description.image;
+        miniDisplayText.innerHTML = info.description.short_description;
+        miniDisplayHeader.innerHTML = info.description.name;
+        miniDisplayImage.src = "/assets/images/" + info.description.image;
+
+        bigDisplayHeader.innerHTML = info.description.name;
+        bigDisplayText.innerHTML = info.description.description;
+
       } else {
-        miniDisplayText.innerHTML = info.projects[projectNum].name + info.projects[projectNum].short_description;
-        miniDisplayImage.innerHTML = info.projects[projectNum].image;
+        miniDisplayText.innerHTML = info.projects[projectNum].short_description;
+        miniDisplayHeader.innerHTML = info.projects[projectNum].name;
+        miniDisplayImage.src = "/assets/images/" + info.projects[projectNum].image;
+
+        bigDisplayHeader.innerHTML = info.projects[projectNum].name;
+        bigDisplayText.innerHTML = info.projects[projectNum].description;
       }
 
       hoverTextElement.style.display = 'block';
@@ -347,7 +385,7 @@ window.addEventListener('click', () => {
       const obj = intersects[0].object;
       // if(obj !== followedObject){
         clicked = 4;
-        // showMenu();
+        showMenu();
         
         let prev = followedObject;
 

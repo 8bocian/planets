@@ -6,24 +6,34 @@
     },
     "projects": [
         {
-            "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-            "name": "Nazwa1",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+            "name": "shorts-automation",
+            "short_description": "",
+            "description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
+            "link": "https://github.com/8bocian/shorts-automation"
         },
         {
-            "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-            "name": "Nazwa2",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+            "name": "ConsolidationFinder",
+            "short_description": "",
+            "description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis",
+            "link": "https://github.com/8bocian/ConsolidationFinder"
         },
         {
-            "name": "Nazwa2",
-            "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+            "name": "AutomaticLicensePlateReader",
+            "short_description": "",
+            "description": "A Python application for recognizing and interpreting license plates from images or video feeds",
+            "link": "https://github.com/8bocian/ALPR - AutomaticLicensePlateReader"
         },
         {
-            "name": "Nazwa2",
-            "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis arcu, placerat eget enim vitae, vestibulum dictum nisl. Quisque euismod rutrum volutpat. Nullam vehicula justo id blandit dignissim. Curabitur a venenatis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque sit amet metus ut ex pellentesque lobortis sit amet nec ligula. Donec non placerat quam. Proin interdum placerat leo, auctor condimentum turpis aliquet non. Integer eleifend tristique ex sed fringilla. Vivamus tempus sem eget auctor rhoncus."
+            "name": "Lane-Detector",
+            "short_description": "",
+            "description": "A Python script for identifying and tracking road lanes in video footage.",
+            "link": "https://github.com/8bocian/Lane-Detector"
+        },
+        {
+            "name": "Scrapy_Market_Data_Collectors ",
+            "short_description": "",
+            "description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies",
+            "link": "https://github.com/8bocian/Scrapy_Market_Data_Collectors"
         }
     ]
 }
