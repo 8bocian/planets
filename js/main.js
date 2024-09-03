@@ -5,7 +5,7 @@ import '../style.css';
 import {Planet} from './classes/Planet.js';
 import {generateRandomValues, generateIntenseColor} from './utils.js'
 import * as TWEEN from '@tweenjs/tween.js';
-import galaxyTexture from '../assets/textures/galaxy1.png';
+import galaxyTexture from '/public/assets/textures/galaxy1.png';
 
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
