@@ -304,7 +304,7 @@ window.addEventListener('mousemove', (event) => {
       if (projectNum < 0){
         miniDisplayText.innerHTML = info.description.short_description;
         miniDisplayHeader.innerHTML = info.description.name;
-        miniDisplayImage.src = "/assets/images/" + info.description.image;
+        miniDisplayImage.src = "../assets/images/" + info.description.image;
 
         bigDisplayHeader.innerHTML = info.description.name;
         bigDisplayText.innerHTML = info.description.description;
@@ -312,7 +312,7 @@ window.addEventListener('mousemove', (event) => {
       } else {
         miniDisplayText.innerHTML = info.projects[projectNum].short_description;
         miniDisplayHeader.innerHTML = info.projects[projectNum].name;
-        miniDisplayImage.src = "/assets/images/" + info.projects[projectNum].image;
+        miniDisplayImage.src = "../assets/images/" + info.projects[projectNum].image;
 
         bigDisplayHeader.innerHTML = info.projects[projectNum].name;
         bigDisplayText.innerHTML = info.projects[projectNum].description;
