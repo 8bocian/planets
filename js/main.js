@@ -3,11 +3,8 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import gsap from "gsap";
 import '../style.css';
 import {Planet} from './classes/Planet.js';
-// import { perlinNoiseShader } from './shaders';
 import {generateRandomValues, generateIntenseColor} from './utils.js'
-import starsTexture from '../assets/textures/stars_sqr.jpg';
 import * as TWEEN from '@tweenjs/tween.js';
-import backgroundTexture from '../assets/textures/galaxy1.png'; // Replace with the path to your background image
 
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -235,7 +232,7 @@ for(let i=0; i<nPlanets; i++){
 
   let orbitRadius = orbits[i];
 
-  let orbitSpeed = Math.max((Math.random() * 0.4) / orbitRadius, 0.004)/10;
+  let orbitSpeed = Math.max((Math.random() * 0.4) / orbitRadius, 0.004)/7;
   const planet = new Planet(color, planetRadius, orbitRadius, orbitSpeed);
   planets.push(planet);
   planet.mesh.layers.toggle(BLOOM_SCENE);
@@ -477,6 +474,3 @@ const tl = gsap.timeline({defaults: {duration: 3}});
 planets.forEach(children => {
   tl.fromTo(children.mesh.scale, {z: 0, x: 0, y: 0}, {z: 1, x: 1, y: 1}, 0)
 });
-
-
-// NAPRAWIC TE PIERDOLONE SLERPY CO SIE OD SLONCA ZACZYNAJA, dodac hovera

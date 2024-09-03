@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import { MeshLine, MeshLineMaterial, MeshLineRaycast } from 'three.meshline';
+import { MeshLine, MeshLineMaterial } from 'three.meshline';
 
 class Planet {
     constructor(color, sphereRadius, orbitRadius, orbitSpeed, initialOrbitAngle=Math.random() * Math.PI * 2) {
         this.geometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
         this.color = color;
-        this.material = new THREE.MeshStandardMaterial({ color: color }); // MeshBasicMaterial
+        this.material = new THREE.MeshStandardMaterial({ color: color });
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.orbitRadius = orbitRadius;
         this.orbitSpeed = orbitSpeed;
