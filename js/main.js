@@ -61,50 +61,64 @@ let info = {
       "name": "Bocian",
       "short_description": "Python programmer with experience in machine learning, API development, and web scraping. Skilled in automating tasks, extracting data, and building data-driven applications.",
       "description": "Passionate Python programmer with expertise in building machine learning models, developing robust APIs, and web scraping. At 19, I bring a strong foundation in software development, with hands-on experience in automating tasks, extracting valuable data, and creating data-driven applications. Eager to tackle challenging problems and continuously learn new technologies",
-      "image": "stork.png"
+      "image": "stork.png",
+      "links": []
   },
   "projects": [
       {
           "name": "YouTube Shorts Automation",
           "image": "python-icon.svg",
-          "description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation. Github Links: <a href='https://github.com/8bocian/shorts-automation'>Backend</a>",
+          "description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
           "short_description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
-          "link": "https://github.com/8bocian/shorts-automation"
+          "links": [
+            ("backend", "https://github.com/8bocian/shorts-automation")
+          ]
       },
       {
           "name": "Price Consolidation Finder",
           "image": "python-icon.svg",
-          "description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis. Github Links: <a href='https://github.com/8bocian/ConsolidationFinder'>Backend</a>",
+          "description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
           "short_description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
-          "link": "https://github.com/8bocian/ConsolidationFinder"
+          "links": [
+            ("backend", "https://github.com/8bocian/ConsolidationFinder")
+          ]
       },
       {
           "name": "Automatic License Plate Reader",
           "image": "python-icon.svg",
-          "description": "A Python application for recognizing and interpreting license plates from images or video feeds. Github Links: <a href='https://github.com/8bocian/ALPR'>Backend</a>",
+          "description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
           "short_description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
-          "link": "https://github.com/8bocian/ALPR - AutomaticLicensePlateReader"
+          "links": [
+            ("backend", "https://github.com/8bocian/ALPR")
+          ]
       },
       {
           "name": "Road Lane Detector",
           "image": "python-icon.svg",
-          "description": "A Python script for identifying and tracking road lanes in video footage. Github Links: <a href='https://github.com/8bocian/Lane-Detector'>Backend</a>",
+          "description": "A Python script for identifying and tracking road lanes in video footage.",
           "short_description": "A Python script for identifying and tracking road lanes in video footage.",
-          "link": "https://github.com/8bocian/Lane-Detector"
+          "links": [
+            ("backend", "https://github.com/8bocian/Lane-Detector")
+          ]
       },
       {
         "name": "BriefPic",
         "image": "python-icon.svg",
-        "description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards. Github Links: <a href='https://github.com/8bocian/BriefPic'>Backend</a> <a href='https://github.com/8bocian/BriefPic-App'>Frontend</a>",
+        "description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards.",
         "short_description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards.",
-        "link": "https://github.com/8bocian/BriefPic-App"
+        "links": [
+          ("backend", "https://github.com/8bocian/BriefPic-App"),
+          ("frontend", "https://github.com/8bocian/BriefPic")
+        ]
       },
       {
           "name": "Scrapy Market Data Collectors ",
           "image": "python-icon.svg",
-          "description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies. Github Links: <a href='https://github.com/8bocian/Scrapy_Market_Data_Collectors'>Backend</a>",
+          "description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies.",
           "short_description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies.",
-          "link": "https://github.com/8bocian/Scrapy_Market_Data_Collectors"
+          "links": [
+            ("backend", "https://github.com/8bocian/Scrapy_Market_Data_Collectors")
+          ]
       }
   ]
 };
@@ -305,17 +319,26 @@ window.addEventListener('mousemove', (event) => {
         miniDisplayText.innerHTML = info.description.short_description;
         miniDisplayHeader.innerHTML = info.description.name;
         miniDisplayImage.src = "/assets/images/" + info.description.image;
-
+        
         bigDisplayHeader.innerHTML = info.description.name;
         bigDisplayText.innerHTML = info.description.description;
 
+        info.description.links.forEach(link => {
+          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a><br>`;
+        });
       } else {
-        miniDisplayText.innerHTML = info.projects[projectNum].short_description;
-        miniDisplayHeader.innerHTML = info.projects[projectNum].name;
-        miniDisplayImage.src = "/assets/images/" + info.projects[projectNum].image;
+        let project = info.projects[projectNum];
 
-        bigDisplayHeader.innerHTML = info.projects[projectNum].name;
-        bigDisplayText.innerHTML = info.projects[projectNum].description;
+        miniDisplayText.innerHTML = project.short_description;
+        miniDisplayHeader.innerHTML = project.name;
+        miniDisplayImage.src = "/assets/images/" + project.image;
+
+        bigDisplayHeader.innerHTML = project.name;
+        bigDisplayText.innerHTML = project.description;
+      
+        links.forEach(link => {
+          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a><br>`;
+        });
       }
 
       hoverTextElement.style.display = 'block';
