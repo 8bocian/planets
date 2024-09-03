@@ -3,11 +3,9 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import gsap from "gsap";
 import '../style.css';
 import {Planet} from './classes/Planet.js';
-// import { perlinNoiseShader } from './shaders';
 import {generateRandomValues, generateIntenseColor} from './utils.js'
-import starsTexture from '../assets/textures/stars_sqr.jpg';
 import * as TWEEN from '@tweenjs/tween.js';
-import backgroundTexture from '../assets/textures/galaxy1.png'; // Replace with the path to your background image
+import galaxyTexture from '../assets/textures/galaxy1.png';
 
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -240,7 +238,7 @@ scene.add(ambientLight);
 
 const sphereGeometry = new THREE.SphereGeometry(5000, 32, 32);
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('/assets/textures/galaxy1.png');
+const texture = textureLoader.load(galaxyTexture);
 const sphereMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
 const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
