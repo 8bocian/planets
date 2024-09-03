@@ -3,7 +3,7 @@ import { MeshLine, MeshLineMaterial } from 'three.meshline';
 
 class Planet {
     constructor(color, sphereRadius, orbitRadius, orbitSpeed, initialOrbitAngle=Math.random() * Math.PI * 2) {
-        this.geometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
+        this.geometry = new THREE.SphereGeometry(sphereRadius, 16, 16);
         this.color = color;
         this.material = new THREE.MeshStandardMaterial({ color: color });
         this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -74,17 +74,9 @@ class Planet {
         }
 
 
-        // const existingColor = this.lineMaterial.color.getHSL();
-        // console.log(alpha);
-        // console.log(this.lineMaterial.color.r);
         this.lineMaterial.opacity = alpha;
-        // this.lineMaterial.color = new THREE.Color(this.lineMaterial.color.r, this.lineMaterial.color.g, this.lineMaterial.color.b, alpha);
         this.lineGeometry.setPoints(this.points.flat());
     }
 }
 
 export { Planet };
-
-
-//Dodac maksymalna ilosc punktow i dodac rotacje po y w planetach
-// glow slonca i dodac zmiane rotacji orbity po osi x y zeby nie wszystkie byly tak samo aligned

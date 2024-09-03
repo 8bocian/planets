@@ -345,7 +345,7 @@ window.addEventListener('click', () => {
       const obj = intersects[0].object;
       // if(obj !== followedObject){
         clicked = 4;
-        // showMenu();
+        showMenu();
         
         let prev = followedObject;
 
