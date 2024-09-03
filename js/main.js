@@ -336,7 +336,7 @@ window.addEventListener('mousemove', (event) => {
         bigDisplayHeader.innerHTML = project.name;
         bigDisplayText.innerHTML = project.description;
       
-        links.forEach(link => {
+        project.links.forEach(link => {
           bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a><br>`;
         });
       }
