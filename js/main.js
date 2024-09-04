@@ -59,7 +59,7 @@ let projectNum = null;
 let info = {
   "description": {
       "short_description": "O mnie",
-      "name": "Bocian",
+      "name": "About me",
       "short_description": "Python programmer with experience in machine learning, API development, and web scraping. Skilled in automating tasks, extracting data, and building data-driven applications.",
       "description": "Passionate Python programmer with expertise in building machine learning models, developing robust APIs, and web scraping. At 19, I bring a strong foundation in software development, with hands-on experience in automating tasks, extracting valuable data, and creating data-driven applications. Eager to tackle challenging problems and continuously learn new technologies",
       "image": "stork.png",
@@ -380,6 +380,32 @@ function hideMenu() {
   menuToggle.style.transform = 'rotate(0)';
 }
 
+function clickPlanet(planetNum) {
+  let links = "";
+  bigDisplayLinks.innerHTML = links;
+
+  if (planetNum < 0){
+    bigDisplayHeader.innerHTML = info.description.name;
+    bigDisplayText.innerHTML = info.description.description;
+
+    
+    info.description.links.forEach(link => {
+      links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+    });
+  } else {
+    let project = info.projects[planetNum];
+    bigDisplayHeader.innerHTML = project.name;
+    bigDisplayText.innerHTML = project.description;
+  
+    project.links.forEach(link => {
+      links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+    });
+  }
+  bigDisplayLinks.innerHTML = links;
+  clicked = 4;
+  showMenu();
+}
+
 let clicked = 0;
 
 window.addEventListener('click', () => {
@@ -389,30 +415,8 @@ window.addEventListener('click', () => {
     if (intersects.length > 0){
       const obj = intersects[0].object;
       // if(obj !== followedObject){
-        projectNum = planets.findIndex(planet => planet.mesh === obj)-1;
-        let links = "";
-        bigDisplayLinks.innerHTML = links;
-
-      if (projectNum < 0){
-        bigDisplayHeader.innerHTML = info.description.name;
-        bigDisplayText.innerHTML = info.description.description;
-
-        
-        info.description.links.forEach(link => {
-          links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
-        });
-      } else {
-        let project = info.projects[projectNum];
-        bigDisplayHeader.innerHTML = project.name;
-        bigDisplayText.innerHTML = project.description;
-      
-        project.links.forEach(link => {
-          links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
-        });
-      }
-      bigDisplayLinks.innerHTML = links;
-      clicked = 4;
-      showMenu();
+      projectNum = planets.findIndex(planet => planet.mesh === obj)-1;
+      clickPlanet(projectNum);  
       
       let prev = followedObject;
 
@@ -448,9 +452,7 @@ window.addEventListener('keydown', (event) => {
 scene.add(group);
 
 
-toggleMenu();
-toggleMenu();
-
+clickPlanet(-1);
 const transparent_distance_length = 100;
 const transparent_distance_min = 50;
 const transparent_dirance = transparent_distance_length + transparent_distance_min;
