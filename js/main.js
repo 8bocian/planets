@@ -398,18 +398,22 @@ window.addEventListener('click', () => {
         bigDisplayHeader.innerHTML = info.description.name;
         bigDisplayText.innerHTML = info.description.description;
 
+        let links = "";
+
         info.description.links.forEach(link => {
-          bigDisplayLinks.innerHTML += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+          links += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });
       } else {
         let project = info.projects[projectNum];
         bigDisplayHeader.innerHTML = project.name;
         bigDisplayText.innerHTML = project.description;
       
+        let links = "";
         project.links.forEach(link => {
-          bigDisplayLinks.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+          links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });
       }
+      bigDisplayLinks.innerHTML = links;
       clicked = 4;
       showMenu();
       
