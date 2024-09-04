@@ -63,7 +63,9 @@ let info = {
       "short_description": "Python programmer with experience in machine learning, API development, and web scraping. Skilled in automating tasks, extracting data, and building data-driven applications.",
       "description": "Passionate Python programmer with expertise in building machine learning models, developing robust APIs, and web scraping. At 19, I bring a strong foundation in software development, with hands-on experience in automating tasks, extracting valuable data, and creating data-driven applications. Eager to tackle challenging problems and continuously learn new technologies",
       "image": "stork.png",
-      "links": []
+      "links": [
+        ["Github", "https://github.com/8bocian"]
+      ]
   },
   "projects": [
       {
@@ -393,13 +395,14 @@ window.addEventListener('click', () => {
       const obj = intersects[0].object;
       // if(obj !== followedObject){
         projectNum = planets.findIndex(planet => planet.mesh === obj)-1;
+        let links = "";
+        bigDisplayLinks.innerHTML = links;
 
       if (projectNum < 0){
         bigDisplayHeader.innerHTML = info.description.name;
         bigDisplayText.innerHTML = info.description.description;
 
-        let links = "";
-
+        
         info.description.links.forEach(link => {
           links += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });
@@ -408,7 +411,6 @@ window.addEventListener('click', () => {
         bigDisplayHeader.innerHTML = project.name;
         bigDisplayText.innerHTML = project.description;
       
-        let links = "";
         project.links.forEach(link => {
           links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });

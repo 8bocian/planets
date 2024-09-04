@@ -84,6 +84,31 @@ body, html {
   user-select: none;
 }
 
-a {
+.links a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
   text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.links a:hover {
+  color: #000000;
+  background-color: #ffffff;
+  border-color: #ffffff;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.links a:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
