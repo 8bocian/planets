@@ -62,7 +62,7 @@ let info = {
       "name": "About me",
       "short_description": "Python programmer with experience in machine learning, API development, and web scraping. Skilled in automating tasks, extracting data, and building data-driven applications.",
       "description": "Passionate Python programmer with expertise in building machine learning models, developing robust APIs, and web scraping. At 19, I bring a strong foundation in software development, with hands-on experience in automating tasks, extracting valuable data, and creating data-driven applications. Eager to tackle challenging problems and continuously learn new technologies",
-      "image": "stork.png",
+      "image": "stork_2.png",
       "links": [
         ["Github", "https://github.com/8bocian"]
       ]

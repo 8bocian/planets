@@ -66,6 +66,10 @@ body, html {
   margin-top: 50%;
 }
 
+.responsive-image {
+  border-radius: 5px;
+}
+
 #hoverText {
   position: absolute;
   z-index: 10;
