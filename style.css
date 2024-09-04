@@ -33,6 +33,12 @@ body, html {
   transition: 1s;
 }
 
+@media (max-width: 600px) {
+  #menu {
+    width: 70%;
+  }
+}
+
 .content {
   border-radius: 10px;
   height: 100%;
