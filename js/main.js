@@ -5,7 +5,7 @@ import '../style.css';
 import {Planet} from './classes/Planet.js';
 import {generateRandomValues, generateIntenseColor} from './utils.js'
 import * as TWEEN from '@tweenjs/tween.js';
-import galaxyTexture from '/public/assets/textures/galaxy1.png';
+import galaxyTexture from '/assets/textures/galaxy1.png';
 
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer.js";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -133,8 +133,6 @@ menu.addEventListener("mouseenter", () => (events = false));
 menu.addEventListener("mouseleave", () => (events = true));
 
 
-
-// content.innerHTML = info.description.name + info.description.description;
 
 //Scene
 const scene = new THREE.Scene();
@@ -268,9 +266,6 @@ group.add(sun.mesh);
 //Planets
 var planets = [sun];
 const nPlanets =  info.projects.length;//5;
-
-// const nPlanets =  8;
-// const nPlanets = 8;
 const orbits = generateRandomValues(nPlanets, 15, 15, 30);
 
 for(let i=0; i<nPlanets; i++){
@@ -404,7 +399,7 @@ window.addEventListener('click', () => {
 
         
         info.description.links.forEach(link => {
-          links += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+          links += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });
       } else {
         let project = info.projects[projectNum];
@@ -435,7 +430,6 @@ window.addEventListener('click', () => {
       projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
       clicked = 5;
     }
-    // }
   }
 });
 
@@ -472,12 +466,6 @@ const loop = () => {
     var target = new THREE.Vector3();
 
     camera.getWorldPosition( target );
-    
-    // let quat = new THREE.Quaternion();
-
-    // camera.getWorldQuaternion( quat );
-    
-    // console.log(quat, camera.quaternion);
 
     var distance = target.distanceTo(followedObject.position);
     if (distance < transparent_dirance){
@@ -503,7 +491,6 @@ const loop = () => {
       if(zoomInterpolationFactor < 1) {
           zoomInterpolationFactor += zoomInterpolationSpeed;
           camera.position.lerp(targetPosition, zoomInterpolationFactor);
-          // controls.target.set(followedObject.position.x, followedObject.position.y, followedObject.position.z);
       } else if (controls.target !== new THREE.Vector3(0, 0, 0)) {
           controls.target.set(0, 0, 0);
           controls.update();
@@ -546,6 +533,3 @@ const tl = gsap.timeline({defaults: {duration: 3}});
 planets.forEach(children => {
   tl.fromTo(children.mesh.scale, {z: 0, x: 0, y: 0}, {z: 1, x: 1, y: 1}, 0)
 });
-
-
-// NAPRAWIC TE PIERDOLONE SLERPY CO SIE OD SLONCA ZACZYNAJA, dodac hovera
