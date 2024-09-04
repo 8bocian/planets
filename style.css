@@ -83,3 +83,7 @@ body, html {
   overflow-y: hidden;
   user-select: none;
 }
+
+a {
+  text-decoration: none;
+}

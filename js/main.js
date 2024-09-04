@@ -23,6 +23,7 @@ const hoverTextElement = document.getElementById('hoverText');
 
 const bigDisplayHeader = document.getElementById('big-display-header');
 const bigDisplayText = document.getElementById('big-display-text');
+const bigDisplayLinks = document.getElementById('big-display-links');
 
 const miniDisplayHeader = document.getElementById('mini-display-header');
 const miniDisplayText = document.getElementById('mini-display-text');
@@ -71,7 +72,7 @@ let info = {
           "description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
           "short_description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
           "links": [
-            ("backend", "https://github.com/8bocian/shorts-automation")
+            ["Backend", "https://github.com/8bocian/shorts-automation"]
           ]
       },
       {
@@ -80,7 +81,7 @@ let info = {
           "description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
           "short_description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
           "links": [
-            ("backend", "https://github.com/8bocian/ConsolidationFinder")
+            ["Backend", "https://github.com/8bocian/ConsolidationFinder"]
           ]
       },
       {
@@ -89,7 +90,7 @@ let info = {
           "description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
           "short_description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
           "links": [
-            ("backend", "https://github.com/8bocian/ALPR")
+            ["Backend", "https://github.com/8bocian/ALPR"]
           ]
       },
       {
@@ -98,7 +99,7 @@ let info = {
           "description": "A Python script for identifying and tracking road lanes in video footage.",
           "short_description": "A Python script for identifying and tracking road lanes in video footage.",
           "links": [
-            ("backend", "https://github.com/8bocian/Lane-Detector")
+            ["Backend", "https://github.com/8bocian/Lane-Detector"]
           ]
       },
       {
@@ -107,8 +108,8 @@ let info = {
         "description": "Android app written in Kotlin and Python that utilizes OCR and LLM to help users to create and learn from flashcards.",
         "short_description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards.",
         "links": [
-          ("backend", "https://github.com/8bocian/BriefPic-App"),
-          ("frontend", "https://github.com/8bocian/BriefPic")
+          ["Backend", "https://github.com/8bocian/BriefPic-App"],
+          ["Frontend", "https://github.com/8bocian/BriefPic"]
         ]
       },
       {
@@ -117,7 +118,7 @@ let info = {
           "description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies.",
           "short_description": "Python web crawlers dedicated to gathering data on bonds and stock market information aboutcompanies.",
           "links": [
-            ("backend", "https://github.com/8bocian/Scrapy_Market_Data_Collectors")
+            ["Backend", "https://github.com/8bocian/Scrapy_Market_Data_Collectors"]
           ]
       }
   ]
@@ -398,7 +399,7 @@ window.addEventListener('click', () => {
         bigDisplayText.innerHTML = info.description.description;
 
         info.description.links.forEach(link => {
-          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+          bigDisplayLinks.innerHTML += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });
       } else {
         let project = info.projects[projectNum];
@@ -406,7 +407,7 @@ window.addEventListener('click', () => {
         bigDisplayText.innerHTML = project.description;
       
         project.links.forEach(link => {
-          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+          bigDisplayLinks.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
         });
       }
       clicked = 4;
