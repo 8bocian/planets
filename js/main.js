@@ -47,7 +47,7 @@ let rotationInterpolationFactor = 0.01;
 let rotationInterpolationSpeed = 0.05;
 
 let zoomInterpolationFactor = 0.01;
-let zoomInterpolationSpeed = 0.05;
+let zoomInterpolationSpeed = 0.02;
 
 const clock = new THREE.Clock();
 
@@ -416,7 +416,7 @@ window.addEventListener('click', () => {
       const obj = intersects[0].object;
       // if(obj !== followedObject){
       projectNum = planets.findIndex(planet => planet.mesh === obj)-1;
-      clickPlanet(projectNum);  
+      clickPlanet(projectNum);
       
       let prev = followedObject;
 
@@ -429,8 +429,8 @@ window.addEventListener('click', () => {
 
       }
       
-      rotationInterpolationFactor = 0.1;
-      zoomInterpolationFactor = 0.1;
+      rotationInterpolationFactor = 0.01;
+      zoomInterpolationFactor = 0.01;
       projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
       clicked = 5;
     }
