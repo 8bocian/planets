@@ -103,8 +103,8 @@ let info = {
       },
       {
         "name": "BriefPic",
-        "image": "python-icon.svg",
-        "description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards.",
+        "image": "briefpic.png",
+        "description": "Android app written in Kotlin and Python that utilizes OCR and LLM to help users to create and learn from flashcards.",
         "short_description": "Android app written in Kotlin that utilizes OCR and LLM to help users to create and learn from flashcards.",
         "links": [
           ("backend", "https://github.com/8bocian/BriefPic-App"),
@@ -319,26 +319,12 @@ window.addEventListener('mousemove', (event) => {
         miniDisplayText.innerHTML = info.description.short_description;
         miniDisplayHeader.innerHTML = info.description.name;
         miniDisplayImage.src = "/assets/images/" + info.description.image;
-        
-        bigDisplayHeader.innerHTML = info.description.name;
-        bigDisplayText.innerHTML = info.description.description;
-
-        info.description.links.forEach(link => {
-          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a><br>`;
-        });
       } else {
         let project = info.projects[projectNum];
 
         miniDisplayText.innerHTML = project.short_description;
         miniDisplayHeader.innerHTML = project.name;
         miniDisplayImage.src = "/assets/images/" + project.image;
-
-        bigDisplayHeader.innerHTML = project.name;
-        bigDisplayText.innerHTML = project.description;
-      
-        project.links.forEach(link => {
-          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a><br>`;
-        });
       }
 
       hoverTextElement.style.display = 'block';
@@ -405,25 +391,43 @@ window.addEventListener('click', () => {
     if (intersects.length > 0){
       const obj = intersects[0].object;
       // if(obj !== followedObject){
-        clicked = 4;
-        showMenu();
-        
-        let prev = followedObject;
+        projectNum = planets.findIndex(planet => planet.mesh === obj)-1;
 
-        followedObject = obj;
-        followedObject.attach(camera);
-        
-        if (prev != null){
-        controls.target.set(prev.position.x, prev.position.y, prev.position.z);
-        controls.update();
+      if (projectNum < 0){
+        bigDisplayHeader.innerHTML = info.description.name;
+        bigDisplayText.innerHTML = info.description.description;
 
-        }
-        
-        rotationInterpolationFactor = 0.1;
-        zoomInterpolationFactor = 0.1;
-        projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
-        clicked = 5;
+        info.description.links.forEach(link => {
+          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+        });
+      } else {
+        let project = info.projects[projectNum];
+        bigDisplayHeader.innerHTML = project.name;
+        bigDisplayText.innerHTML = project.description;
+      
+        project.links.forEach(link => {
+          bigDisplayText.innerHTML += `<a href="${link[1]}" target="_blank" rel="noopener noreferrer">${link[0]}</a>`;
+        });
       }
+      clicked = 4;
+      showMenu();
+      
+      let prev = followedObject;
+
+      followedObject = obj;
+      followedObject.attach(camera);
+      
+      if (prev != null){
+      controls.target.set(prev.position.x, prev.position.y, prev.position.z);
+      controls.update();
+
+      }
+      
+      rotationInterpolationFactor = 0.1;
+      zoomInterpolationFactor = 0.1;
+      projectNum = planets.findIndex(planet => planet.mesh === followedObject)-1;
+      clicked = 5;
+    }
     // }
   }
 });
@@ -487,7 +491,6 @@ const loop = () => {
       rotationInterpolationFactor = Math.min(rotationInterpolationFactor, 1);
       camera.quaternion.slerp(targetQuaternion, rotationInterpolationFactor);
 
-      console.log(rotationInterpolationFactor);
     } else {
 
       if(zoomInterpolationFactor < 1) {
