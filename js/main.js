@@ -79,7 +79,7 @@ let info = {
   "projects": [
       {
         "name": "Consolidation Finder",
-        "image": "python-icon.svg",
+        "image": "candlesticks.png",
         "description": "The Consolidation Finder Bot is a Python-based trading tool that identifies consolidation patterns in cryptocurrency markets using real-time data from the Binance WebSocket API. It analyzes candlestick data to detect consolidations, executes trades automatically with set parameters, and generates visual candlestick charts to highlight detected patterns, aiding in market analysis and decision-making.",
         "short_description": "An automated Python bot that detects consolidation patterns in cryptocurrency markets using real-time Binance data, executes trades, and provides visual insights through candlestick charts.",
         "links": [
