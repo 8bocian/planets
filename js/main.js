@@ -57,7 +57,7 @@ let zoomInterpolationSpeed = 0.02;
 const clock = new THREE.Clock();
 
 let followedObject = null;
-var targetPosition = new THREE.Vector3(0, 10, -15);
+var targetPosition = new THREE.Vector3(0, 30, -30);
 
 let projectNum = null;
 
@@ -467,7 +467,7 @@ window.addEventListener('load', function() {
   setTimeout(function() {
     document.getElementById('overlay').style.display = 'none';
 
-  }, 10000);
+  }, 8000);
 });
 
 
