@@ -403,7 +403,6 @@ function clickPlanet(planetNum) {
   }
   bigDisplayLinks.innerHTML = links;
   clicked = 4;
-  showMenu();
 }
 
 let clicked = 0;
@@ -417,7 +416,8 @@ display.addEventListener('click', () => {
       // if(obj !== followedObject){
       projectNum = planets.findIndex(planet => planet.mesh === obj)-1;
       clickPlanet(projectNum);
-      
+      showMenu();
+
       let prev = followedObject;
 
       followedObject = obj;
@@ -452,14 +452,15 @@ window.addEventListener('keydown', (event) => {
 scene.add(group);
 
 hideMenu("0s");
+clickPlanet(-1);
 
 window.addEventListener('load', function() {
   //load screen with instructions and then start
 
   setTimeout(function() {
     document.getElementById('overlay').style.display = 'none';
-    // clickPlanet(-1);
-  }, 3000);
+
+  }, 10000);
 });
 
 
