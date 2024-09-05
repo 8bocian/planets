@@ -88,7 +88,7 @@ let info = {
       },
       {
           "name": "YouTube Shorts Automation",
-          "image": "python-icon.svg",
+          "image": "Shorts.png",
           "description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
           "short_description": "A Python program designed to generate short videos. It leverages various API keys and environment variables to ensure seamless operation.",
           "links": [
