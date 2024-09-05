@@ -410,7 +410,7 @@ function clickPlanet(planetNum) {
 
 let clicked = 0;
 
-window.addEventListener('click', () => {
+display.addEventListener('click', () => {
   console.log("CLICK");
   test.innerHTML += "CLICK";
   if(events){
