@@ -97,7 +97,7 @@ let info = {
       },
       {
           "name": "Automatic License Plate Reader",
-          "image": "python-icon.svg",
+          "image": "ALPR.png",
           "description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
           "short_description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
           "links": [
@@ -106,7 +106,7 @@ let info = {
       },
       {
           "name": "Road Lane Detector",
-          "image": "python-icon.svg",
+          "image": "RoadLaneDetector.png",
           "description": "A Python script for identifying and tracking road lanes in video footage.",
           "short_description": "A Python script for identifying and tracking road lanes in video footage.",
           "links": [
