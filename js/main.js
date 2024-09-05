@@ -33,7 +33,7 @@ const miniDisplayImage = document.getElementById('mini-display-image');
 function isMobileDevice() {
   return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop|BlackBerry/i.test(navigator.userAgent);
 }
-
+console.log(!isMobileDevice());
 //CONSTS
 const size = {
   width: window.innerWidth,
