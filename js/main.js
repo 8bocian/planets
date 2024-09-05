@@ -299,7 +299,7 @@ function updateMiniDisplay(){
   }
 }
 
-window.addEventListener('mousemove', (event) => {
+display.addEventListener('mousemove', (event) => {
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
@@ -347,7 +347,7 @@ window.addEventListener('mousemove', (event) => {
     }
 });
 
-window.addEventListener('mouseout', (event) => {
+display.addEventListener('mouseout', (event) => {
   projectNum = null;
   display.style.cursor = 'default';
   hoverTextElement.style.display = 'none';
