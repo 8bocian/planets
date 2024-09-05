@@ -12,6 +12,7 @@ import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass.js";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import {OutputPass} from "three/examples/jsm/postprocessing/OutputPass.js";
 import {ShaderPass} from "three/examples/jsm/postprocessing/ShaderPass.js";
+import { randFloat } from 'three/src/math/MathUtils';
 
 const vertexshader = document.getElementById('vertexshader');
 const fragmentshader = document.getElementById('fragmentshader');
@@ -76,6 +77,15 @@ let info = {
       ]
   },
   "projects": [
+      {
+        "name": "Consolidation Finder",
+        "image": "python-icon.svg",
+        "description": "The Consolidation Finder Bot is a Python-based trading tool that identifies consolidation patterns in cryptocurrency markets using real-time data from the Binance WebSocket API. It analyzes candlestick data to detect consolidations, executes trades automatically with set parameters, and generates visual candlestick charts to highlight detected patterns, aiding in market analysis and decision-making.",
+        "short_description": "An automated Python bot that detects consolidation patterns in cryptocurrency markets using real-time Binance data, executes trades, and provides visual insights through candlestick charts.",
+        "links": [
+          ["Backend", "https://github.com/8bocian/ConsolidationFinder"]
+        ]
+      },
       {
           "name": "YouTube Shorts Automation",
           "image": "python-icon.svg",
@@ -278,7 +288,7 @@ const orbits = generateRandomValues(nPlanets, 15, 15, 30);
 
 for(let i=0; i<nPlanets; i++){
   let color = generateIntenseColor();
-  let planetRadius = 4;
+  let planetRadius = randFloat(3, 5);
 
   let orbitRadius = orbits[i];
 
