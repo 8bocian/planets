@@ -29,6 +29,8 @@ const miniDisplayHeader = document.getElementById('mini-display-header');
 const miniDisplayText = document.getElementById('mini-display-text');
 const miniDisplayImage = document.getElementById('mini-display-image');
 
+const test = document.getElementById('test');
+
 //CONSTS
 const size = {
   width: window.innerWidth,
@@ -363,15 +365,15 @@ function toggleMenu() {
   }
 }
 
-function showMenu() {
-  menu.style.transition = '1s';
+function showMenu(time="1s") {
+  menu.style.transition = time;
   menu.style.marginLeft = '0px';
   menuOn = true;
   menuToggle.style.transform = 'rotate(180deg)';
 }
 
-function hideMenu() {
-  menu.style.transition = '1s';
+function hideMenu(time="1s") {
+  menu.style.transition = time;
   var width = content.clientWidth;
   var computedStyles = window.getComputedStyle(content);
   var marginRight = parseFloat(computedStyles.marginRight);
@@ -409,6 +411,8 @@ function clickPlanet(planetNum) {
 let clicked = 0;
 
 window.addEventListener('click', () => {
+  console.log("CLICK");
+  test.innerHTML += "CLICK";
   if(events){
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(group.children);
@@ -451,8 +455,18 @@ window.addEventListener('keydown', (event) => {
 //Add
 scene.add(group);
 
+hideMenu("0s");
 
-clickPlanet(-1);
+window.addEventListener('load', function() {
+  //load screen with instructions and then start
+
+  setTimeout(function() {
+    document.getElementById('overlay').style.display = 'none';
+    // clickPlanet(-1);
+  }, 3000);
+});
+
+
 const transparent_distance_length = 100;
 const transparent_distance_min = 50;
 const transparent_dirance = transparent_distance_length + transparent_distance_min;
