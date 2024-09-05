@@ -96,15 +96,6 @@ let info = {
           ]
       },
       {
-          "name": "Price Consolidation Finder",
-          "image": "python-icon.svg",
-          "description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
-          "short_description": "This Python script detects price consolidations in asset charts, focusing on short time frames for precise analysis.",
-          "links": [
-            ["Backend", "https://github.com/8bocian/ConsolidationFinder"]
-          ]
-      },
-      {
           "name": "Automatic License Plate Reader",
           "image": "python-icon.svg",
           "description": "A Python application for recognizing and interpreting license plates from images or video feeds.",
