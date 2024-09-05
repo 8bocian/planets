@@ -39,12 +39,6 @@ body, html {
   cursor: pointer;
 }
 
-#test{
-  z-index: 100000000;
-  color: white;
-  background-color: aqua;
-}
-
 #menu {
   display: flex;
   z-index: 2;

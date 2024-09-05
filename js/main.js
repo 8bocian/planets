@@ -29,8 +29,6 @@ const miniDisplayHeader = document.getElementById('mini-display-header');
 const miniDisplayText = document.getElementById('mini-display-text');
 const miniDisplayImage = document.getElementById('mini-display-image');
 
-const test = document.getElementById('test');
-
 //CONSTS
 const size = {
   width: window.innerWidth,
@@ -261,7 +259,7 @@ const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 scene.add(sphere);
 
 //Sun
-const sun = new Planet("#FDB813", 4, 0, 0);
+const sun = new Planet("#FDB813", 8, 0, 0);
 sun.mesh.layers.toggle(BLOOM_SCENE);
 group.add(sun.mesh);
 
@@ -272,7 +270,7 @@ const orbits = generateRandomValues(nPlanets, 15, 15, 30);
 
 for(let i=0; i<nPlanets; i++){
   let color = generateIntenseColor();
-  let planetRadius = 2;
+  let planetRadius = 4;
 
   let orbitRadius = orbits[i];
 
@@ -411,8 +409,6 @@ function clickPlanet(planetNum) {
 let clicked = 0;
 
 display.addEventListener('click', () => {
-  console.log("CLICK");
-  test.innerHTML += "CLICK";
   if(events){
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(group.children);
