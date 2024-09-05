@@ -58,6 +58,9 @@ const clock = new THREE.Clock();
 
 let followedObject = null;
 var targetPosition = new THREE.Vector3(0, 30, -30);
+if (isMobileDevice()){
+  targetPosition = new THREE.Vector3(0, 50, -50);
+}
 
 let projectNum = null;
 
