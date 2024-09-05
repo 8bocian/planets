@@ -6,7 +6,7 @@ This Three.js application creates a solar system-themed projects showcase where 
 
 ## Preview
 
-Include a screenshot or gif showcasing your application.
+[Check the out website](oskarmozdzen.com)
 
 ## Features
 
