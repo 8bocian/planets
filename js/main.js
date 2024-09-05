@@ -29,6 +29,11 @@ const miniDisplayHeader = document.getElementById('mini-display-header');
 const miniDisplayText = document.getElementById('mini-display-text');
 const miniDisplayImage = document.getElementById('mini-display-image');
 
+//HELPER
+function isMobileDevice() {
+  return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop|BlackBerry/i.test(navigator.userAgent);
+}
+
 //CONSTS
 const size = {
   width: window.innerWidth,
@@ -299,53 +304,56 @@ function updateMiniDisplay(){
   }
 }
 
-display.addEventListener('mousemove', (event) => {
-	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
-  
-    const intersects = raycaster.intersectObjects(group.children);
-    if (events && intersects.length > 0){
-      display.style.cursor = 'pointer';
-      const hoveredObject = intersects[0].object;
+if (isMobileDevice()){
 
-      // Position the text element based on the mouse coordinates.
+  display.addEventListener('mousemove', (event) => {
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+    
+      const intersects = raycaster.intersectObjects(group.children);
+      if (events && intersects.length > 0){
+        display.style.cursor = 'pointer';
+        const hoveredObject = intersects[0].object;
 
-      projectNum = planets.findIndex(planet => planet.mesh === hoveredObject)-1;
+        // Position the text element based on the mouse coordinates.
 
-      if (projectNum < 0){
-        miniDisplayText.innerHTML = info.description.short_description;
-        miniDisplayHeader.innerHTML = info.description.name;
-        miniDisplayImage.src = "/assets/images/" + info.description.image;
-      } else {
-        let project = info.projects[projectNum];
+        projectNum = planets.findIndex(planet => planet.mesh === hoveredObject)-1;
 
-        miniDisplayText.innerHTML = project.short_description;
-        miniDisplayHeader.innerHTML = project.name;
-        miniDisplayImage.src = "/assets/images/" + project.image;
+        if (projectNum < 0){
+          miniDisplayText.innerHTML = info.description.short_description;
+          miniDisplayHeader.innerHTML = info.description.name;
+          miniDisplayImage.src = "/assets/images/" + info.description.image;
+        } else {
+          let project = info.projects[projectNum];
+
+          miniDisplayText.innerHTML = project.short_description;
+          miniDisplayHeader.innerHTML = project.name;
+          miniDisplayImage.src = "/assets/images/" + project.image;
+        }
+
+        hoverTextElement.style.display = 'block';
+
+        hoverTextElement.style.left = event.clientX - 4 + 'px';
+        hoverTextElement.style.top = event.clientY - 8 - hoverTextElement.clientHeight + 'px';
+
+        if (event.clientX + hoverTextElement.clientWidth > window.innerWidth) {
+          hoverTextElement.style.left = (event.clientX - hoverTextElement.clientWidth + 4) + 'px';
+        }
+
+        // Check and adjust for the bottom overflow
+        if (event.clientY - hoverTextElement.clientHeight < 0) {
+          hoverTextElement.style.top = (event.clientY + 20) + 'px';
+        }
+
+      } else if (intersects.length == 0){
+        projectNum = null;
+        display.style.cursor = 'default';
+        hoverTextElement.style.display = 'none';
+
       }
-
-      hoverTextElement.style.display = 'block';
-
-      hoverTextElement.style.left = event.clientX - 4 + 'px';
-      hoverTextElement.style.top = event.clientY - 8 - hoverTextElement.clientHeight + 'px';
-
-      if (event.clientX + hoverTextElement.clientWidth > window.innerWidth) {
-        hoverTextElement.style.left = (event.clientX - hoverTextElement.clientWidth + 4) + 'px';
-      }
-
-      // Check and adjust for the bottom overflow
-      if (event.clientY - hoverTextElement.clientHeight < 0) {
-        hoverTextElement.style.top = (event.clientY + 20) + 'px';
-      }
-
-    } else if (intersects.length == 0){
-      projectNum = null;
-      display.style.cursor = 'default';
-      hoverTextElement.style.display = 'none';
-
-    }
-});
+  });
+}
 
 display.addEventListener('mouseout', (event) => {
   projectNum = null;
