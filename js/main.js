@@ -304,7 +304,7 @@ function updateMiniDisplay(){
   }
 }
 
-if (isMobileDevice()){
+if (!isMobileDevice()){
 
   display.addEventListener('mousemove', (event) => {
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
