@@ -476,6 +476,7 @@ function animateLoadingBar(duration) {
   const timer = setInterval(() => {
     width += stepSize;
     loadingBar.style.width = width + '%';
+    loadingBar.innerText = `${stepSize} - ${duration} - ${parseInt(width)}`;
     console.log(loadingBar.style.width);
     if (width >= 100) {
       clearInterval(timer);

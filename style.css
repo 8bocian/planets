@@ -52,7 +52,10 @@ body, html {
   height: 100%;
   width: 0;
   background-color: #F9F9F9;
-  transition: width 0s;
+  transition: 0s;
+  color: #000000;
+  text-align: center;
+  font-size: small;
 }
 
 .webgl {
