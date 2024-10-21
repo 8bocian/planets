@@ -468,6 +468,7 @@ clickPlanet(-1);
 function animateLoadingBar(duration) {
   const loadingBar = document.getElementById('loading-bar');
   let width = 0;
+  let totalTime = 0;
   const updateInterval = 10; 
   const totalSteps = duration / updateInterval;
 
@@ -475,8 +476,9 @@ function animateLoadingBar(duration) {
   
   const timer = setInterval(() => {
     width += stepSize;
+    totalTime += updateInterval;
     loadingBar.style.width = width + '%';
-    loadingBar.innerText = `${stepSize} - ${duration} - ${parseInt(width)}`;
+    loadingBar.innerText = totalTime;
     console.log(loadingBar.style.width);
     if (width >= 100) {
       clearInterval(timer);
