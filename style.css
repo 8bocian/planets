@@ -52,7 +52,7 @@ body, html {
   height: 100%;
   width: 0;
   background-color: #F9F9F9;
-  transition: 0s;
+  transition: width 0.3s;
   color: #000000;
   text-align: center;
   font-size: small;

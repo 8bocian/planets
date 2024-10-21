@@ -469,7 +469,7 @@ function animateLoadingBar(duration) {
   const loadingBar = document.getElementById('loading-bar');
   let width = 0;
   let totalTime = 0;
-  const updateInterval = 10; 
+  const updateInterval = 100; 
   const totalSteps = duration / updateInterval;
 
   const stepSize = 100 / totalSteps;
