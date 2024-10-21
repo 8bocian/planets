@@ -39,6 +39,22 @@ body, html {
   text-align: center;
 }
 
+.loading-container {
+  width: 80%;
+  height: 20px;
+  background-color: #555;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0;
+  background-color: #F9F9F9;
+  transition: width 0s;
+}
+
 .webgl {
   position: absolute;
   top: 0;

@@ -465,13 +465,29 @@ scene.add(group);
 hideMenu("0s");
 clickPlanet(-1);
 
+function animateLoadingBar(duration) {
+  const loadingBar = document.getElementById('loading-bar');
+  let width = 0;
+  const updateInterval = 10; 
+  const totalSteps = duration / updateInterval;
+
+  const stepSize = 100 / totalSteps;
+  
+  const timer = setInterval(() => {
+    width += stepSize;
+    loadingBar.style.width = width + '%';
+    console.log(loadingBar.style.width);
+    if (width >= 100) {
+      clearInterval(timer);
+      document.getElementById('overlay').style.display = 'none';
+    }
+  }, updateInterval);
+}
+
 window.addEventListener('load', function() {
-  //load screen with instructions and then start
 
-  setTimeout(function() {
-    document.getElementById('overlay').style.display = 'none';
-
-  }, 8000);
+  const loadingWindowTime = 8000 //in miliseconds
+  animateLoadingBar(loadingWindowTime);
 });
 
 
